@@ -159,7 +159,7 @@
         return;
       }
       // Pastikan URL sudah diisi
-      if (!SCRIPT_URL || SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbyPbqIusnXwjeLcOnJzfNrp9m_bydPcn3SImgx04vzvGHwEx76JdAhRAC5zXATmpqJw/exec')) {
+      if (!SCRIPT_URL || SCRIPT_URL.includes("https://script.google.com/macros/s/AKfycbyPbqIusnXwjeLcOnJzfNrp9m_bydPcn3SImgx04vzvGHwEx76JdAhRAC5zXATmpqJw/exec")) {
         e.preventDefault();
         alert('Konfigurasi belum lengkap. Tempelkan URL Web Apps Script di file ini.');
         return;
@@ -188,14 +188,14 @@
     unlockAdmin.addEventListener('click', () => {
       if (adminCode.value === ADMIN_CODE) {
         adminActions.classList.remove('hidden');
-        if (SHEET_URL && !SHEET_URL.includes('https://docs.google.com/spreadsheets/d/1Tf6zXorO24WdxprjAzjmgAYS_Ya4Zn8paCIiJcmf8FE/edit?usp=sharing')) {
+        if (SHEET_URL && !SHEET_URL.includes("https://docs.google.com/spreadsheets/d/1Tf6zXorO24WdxprjAzjmgAYS_Ya4Zn8paCIiJcmf8FE/edit?usp=sharing")) {
           openSheet.href = SHEET_URL;
           openSheet.classList.remove('pointer-events-none','opacity-50');
         } else {
           openSheet.href = '#';
           openSheet.classList.add('pointer-events-none','opacity-50');
         }
-        if (CSV_URL && !CSV_URL.includes('https://docs.google.com/spreadsheets/d/e/2PACX-1vQGf85ph4kkds4Erz0852QZm_5wCJOKJ2sj7_IOkPkR6sVpqudsRSl18pKXp8BgXmDgt2eco2CtPnwT/pub?gid=0&single=true&output=csv')) {
+        if (CSV_URL && !CSV_URL.includes("https://docs.google.com/spreadsheets/d/e/2PACX-1vQGf85ph4kkds4Erz0852QZm_5wCJOKJ2sj7_IOkPkR6sVpqudsRSl18pKXp8BgXmDgt2eco2CtPnwT/pub?gid=0&single=true&output=csv")) {
           openCSV.href = CSV_URL;
           openCSV.classList.remove('pointer-events-none','opacity-50');
         } else {
