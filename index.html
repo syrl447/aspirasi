@@ -4,206 +4,125 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kotak Aspirasi HME FTIK UNISMU</title>
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0; padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
     body {
-      background: #f3f4f6;
-      color: #1f2937;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #004e92, #000428);
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       min-height: 100vh;
-      padding: 2rem;
     }
     .container {
-      background: #fff;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
       width: 100%;
-      max-width: 700px;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 500px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
-    h1 {
+    h2 {
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #1e3a8a;
-      margin-bottom: 1.5rem;
+      color: #004e92;
+      margin-bottom: 20px;
     }
     label {
-      font-weight: 500;
+      font-weight: bold;
+      margin-top: 10px;
       display: block;
-      margin-top: 1rem;
+      color: #333;
     }
     input, select, textarea {
       width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.75rem;
-      font-size: 1rem;
-      outline: none;
-      transition: 0.2s;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #1e3a8a;
-      box-shadow: 0 0 0 3px rgba(30,58,138,0.2);
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
     }
     button {
-      margin-top: 1.5rem;
-      padding: 0.75rem;
       width: 100%;
+      padding: 12px;
+      background: #004e92;
+      color: white;
       border: none;
-      border-radius: 0.75rem;
-      background: #1e3a8a;
-      color: #fff;
-      font-weight: 600;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.3s;
     }
     button:hover {
-      background: #3749b9;
+      background: #0066cc;
     }
-    .admin-panel {
-      display: none;
-      margin-top: 2rem;
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
     }
-    th, td {
-      padding: 0.75rem;
-      border: 1px solid #e5e7eb;
-      text-align: left;
-      font-size: 0.9rem;
-    }
-    th {
-      background: #f3f4f6;
-    }
-    .status {
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #fff;
-    }
-    .baru { background: #ef4444; }     /* merah */
-    .proses { background: #f59e0b; }   /* kuning */
-    .selesai { background: #10b981; }  /* hijau */
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>KOTAK ASPIRASI HME FTIK UNISMU</h1>
-
-    <!-- Form Aspirasi -->
+    <h2>KOTAK ASPIRASI HME FTIK UNISMU</h2>
     <form id="aspirasiForm">
-      <label>Nama</label>
-      <input type="text" id="nama" required>
-      
-      <label>NIM</label>
-      <input type="text" id="nim" required>
-      
-      <label>Angkatan</label>
-      <input type="text" id="angkatan" required>
-      
-      <label>Pilihan</label>
-      <select id="pilihan" required>
-        <option value="">-- Pilih --</option>
+      <label for="nama">Nama</label>
+      <input type="text" id="nama" name="Nama" required>
+
+      <label for="nim">NIM</label>
+      <input type="text" id="nim" name="NIM" required>
+
+      <label for="angkatan">Angkatan</label>
+      <input type="text" id="angkatan" name="Angkatan" required>
+
+      <label for="pilihan">Pilihan</label>
+      <select id="pilihan" name="Pilihan" required>
+        <option value="">--Pilih--</option>
         <option value="Himpunan">Himpunan</option>
         <option value="Kampus">Kampus</option>
       </select>
-      
-      <label>Kritik & Saran</label>
-      <textarea id="kritik" rows="4" required></textarea>
-      
-      <label>Email</label>
-      <input type="email" id="email" required>
-      
+
+      <label for="kritik">Kritik & Saran</label>
+      <textarea id="kritik" name="Kritik_Saran" rows="4" required></textarea>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="Email" required>
+
       <button type="submit">Kirim Aspirasi</button>
     </form>
-
-    <!-- Login Admin -->
-    <div style="margin-top:2rem; text-align:center;">
-      <p><strong>Login Admin</strong></p>
-      <input type="password" id="adminPin" placeholder="Masukkan PIN Admin">
-      <button onclick="loginAdmin()">Masuk</button>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-      <h2>📋 Daftar Aspirasi</h2>
-      <table id="aspirasiTable">
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>NIM</th>
-            <th>Angkatan</th>
-            <th>Pilihan</th>
-            <th>Kritik & Saran</th>
-            <th>Email</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+    <p class="success" id="successMsg" style="display:none;">✅ Data berhasil dikirim!</p>
+    <p class="error" id="errorMsg" style="display:none;">❌ Terjadi kesalahan, coba lagi.</p>
   </div>
 
   <script>
-    const aspirasiForm = document.getElementById("aspirasiForm");
-    const aspirasiTable = document.querySelector("#aspirasiTable tbody");
-    let dataAspirasi = [];
+    // 🔗 GANTI LINK DI BAWAH DENGAN LINK WEB APP KAMU
+    const scriptURL = https:/script.google.com/macros/s/AKfycbw1rava1dQar51uoZ--GU_pLY-LwJ6rUZcSKF-ud_eTTqT-MCZ6VPmFLSlub7Mtwyuz/exec;  
 
-    aspirasiForm.addEventListener("submit", function(e){
+    const form = document.getElementById("aspirasiForm");
+    const successMsg = document.getElementById("successMsg");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", e => {
       e.preventDefault();
-      const aspirasi = {
-        nama: document.getElementById("nama").value,
-        nim: document.getElementById("nim").value,
-        angkatan: document.getElementById("angkatan").value,
-        pilihan: document.getElementById("pilihan").value,
-        kritik: document.getElementById("kritik").value,
-        email: document.getElementById("email").value,
-        status: "baru"
-      };
-      dataAspirasi.push(aspirasi);
-      alert("Aspirasi berhasil dikirim!");
-      aspirasiForm.reset();
-      updateTable();
+      fetch(scriptURL, { method: "POST", body: new FormData(form)})
+        .then(response => {
+          successMsg.style.display = "block";
+          errorMsg.style.display = "none";
+          form.reset();
+        })
+        .catch(error => {
+          successMsg.style.display = "none";
+          errorMsg.style.display = "block";
+          console.error("Error!", error.message);
+        });
     });
-
-    function loginAdmin(){
-      const pin = document.getElementById("adminPin").value;
-      if(pin === "654321"){
-        document.getElementById("adminPanel").style.display = "block";
-      } else {
-        alert("PIN salah!");
-      }
-    }
-
-    function updateTable(){
-      aspirasiTable.innerHTML = "";
-      dataAspirasi.forEach((a, index) => {
-        const row = `<tr>
-          <td>${a.nama}</td>
-          <td>${a.nim}</td>
-          <td>${a.angkatan}</td>
-          <td>${a.pilihan}</td>
-          <td>${a.kritik}</td>
-          <td>${a.email}</td>
-          <td><span class="status ${a.status}">${a.status.toUpperCase()}</span></td>
-        </tr>`;
-        aspirasiTable.innerHTML += row;
-      });
-    }
   </script>
 </body>
 </html>
