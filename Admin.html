@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Kotak Aspirasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
+  <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-4xl">
+    <h1 class="text-2xl font-bold text-indigo-600 text-center mb-6">Admin Kotak Aspirasi</h1>
+
+    <!-- Form Login -->
+    <div id="loginSection" class="text-center">
+      <input type="password" id="kodeAdmin" placeholder="Masukkan kode admin"
+        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 mb-4" />
+      <button onclick="loginAdmin()"
+        class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
+        Login
+      </button>
+      <p id="loginMsg" class="mt-3 text-sm text-red-600"></p>
+    </div>
+
+    <!-- Data Table -->
+    <div id="dataSection" class="hidden">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">Data Aspirasi</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border border-gray-300 text-sm">
+          <thead class="bg-indigo-600 text-white">
+            <tr>
+              <th class="p-2 border">Email</th>
+              <th class="p-2 border">Nama</th>
+              <th class="p-2 border">NIM</th>
+              <th class="p-2 border">Angkatan</th>
+              <th class="p-2 border">Pilihan</th>
+              <th class="p-2 border">Kritik & Saran</th>
+            </tr>
+          </thead>
+          <tbody id="dataTable" class="bg-white"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_CODE = "654321"; 
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGf85ph4kkds4Erz0852QZm_5wCJOKJ2sj7_IOkPkR6sVpqudsRSl18pKXp8BgXmDgt2eco2CtPnwT/pub?gid=0&single=true&output=csv";
+
+    function loginAdmin() {
+      const kode = document.getElementById("kodeAdmin").value;
+      const loginMsg = document.getElementById("loginMsg");
+
+      if (kode === ADMIN_CODE) {
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("dataSection").classList.remove("hidden");
+        loadData();
+      } else {
+        loginMsg.textContent = "Kode admin salah!";
+      }
+    }
+
+    async function loadData() {
+      const res = await fetch(CSV_URL);
+      const text = await res.text();
+      const rows = text.trim().split("\n").map(r => r.split(","));
+
+      const table = document.getElementById("dataTable");
+      table.innerHTML = "";
+
+      for (let i = 1; i < rows.length; i++) { 
+        const row = document.createElement("tr");
+        row.className = "hover:bg-gray-100";
+        rows[i].forEach(cell => {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          td.className = "p-2 border";
+          row.appendChild(td);
+        });
+        table.appendChild(row);
+      }
+    }
+  </script>
+</body>
+</html>
