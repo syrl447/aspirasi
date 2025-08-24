@@ -1,128 +1,221 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kotak Aspirasi HME FTIK UNISMU</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kotak Aspirasi HME</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="dark light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #004e92, #000428);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-    h2 {
-      text-align: center;
-      color: #004e92;
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-      color: #333;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #004e92;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #0066cc;
-    }
-    .success {
-      color: green;
-      text-align: center;
-      margin-top: 10px;
-    }
-    .error {
-      color: red;
-      text-align: center;
-      margin-top: 10px;
-    }
+    :root { --ring: rgba(59,130,246,.5); }
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .glass { background: rgba(255,255,255,.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.12); }
+    .gradient-bg { background: radial-gradient(1200px 800px at 10% -10%, rgba(59,130,246,.25), transparent 50%),
+                              radial-gradient(1000px 700px at 110% 10%, rgba(236,72,153,.18), transparent 50%),
+                              radial-gradient(700px 600px at 50% 120%, rgba(34,197,94,.18), transparent 50%),
+                              #0b1020; }
+    .focus-ring { box-shadow: 0 0 0 4px var(--ring); }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h2>KOTAK ASPIRASI HME FTIK UNISMU</h2>
-    <form id="aspirasiForm">
-      <label for="nama">Nama</label>
-      <input type="text" id="nama" name="Nama" required>
+<body class="gradient-bg min-h-screen text-slate-200">
+  <header class="max-w-4xl mx-auto px-6 pt-12">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Kotak Aspirasi HME</h1>
+      <button id="adminBtn" class="inline-flex items-center gap-2 rounded-2xl glass px-4 py-2 text-sm font-semibold hover:bg-white/10 active:scale-[.98] transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7v2.07A7.002 7.002 0 0 0 4 18a7 7 0 1 0 14 0 7.002 7.002 0 0 0-1-6.93V9a7 7 0 0 0-7-7Zm0 3a4 4 0 0 1 4 4v2H8V9a4 4 0 0 1 4-4Zm0 17a5 5 0 0 1-5-5c0-1.86 1.02-3.48 2.53-4.35.29-.17.47-.47.47-.8V12h4v-.15c0 .33.18.63.47.8A5 5 0 0 1 17 17a5 5 0 0 1-5 5Z"/></svg>
+        Admin
+      </button>
+    </div>
+    <p class="mt-3 text-slate-400">Sampaikan kritik, saran, dan aspirasi Anda untuk <span class="font-semibold">Kampus / Himpunan</span>. Data akan tersimpan otomatis ke Google Sheets.</p>
+  </header>
 
-      <label for="nim">NIM</label>
-      <input type="text" id="nim" name="NIM" required>
+  <main class="max-w-4xl mx-auto px-6 py-8">
+    <section class="glass rounded-3xl p-6 md:p-8 shadow-xl">
+      <form id="aspirasiForm" class="grid grid-cols-1 md:grid-cols-2 gap-5" method="POST" target="hidden_iframe">
+        <!-- KONFIGURASI – GANTI URL di JS, bukan di action form -->
+        <input type="hidden" name="action" value="submit" />
 
-      <label for="angkatan">Angkatan</label>
-      <input type="text" id="angkatan" name="Angkatan" required>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium mb-2" for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="nama@contoh.ac.id" class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400" />
+        </div>
 
-      <label for="pilihan">Pilihan</label>
-      <select id="pilihan" name="Pilihan" required>
-        <option value="">--Pilih--</option>
-        <option value="Himpunan">Himpunan</option>
-        <option value="Kampus">Kampus</option>
-      </select>
+        <div>
+          <label class="block text-sm font-medium mb-2" for="nama">Nama</label>
+          <input id="nama" name="nama" required placeholder="Nama lengkap" class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400" />
+        </div>
 
-      <label for="kritik">Kritik & Saran</label>
-      <textarea id="kritik" name="Kritik_Saran" rows="4" required></textarea>
+        <div>
+          <label class="block text-sm font-medium mb-2" for="nim">NIM</label>
+          <input id="nim" name="nim" required placeholder="20xxxxxxx" class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400" />
+        </div>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="Email" required>
+        <div>
+          <label class="block text-sm font-medium mb-2" for="angkatan">Angkatan</label>
+          <input id="angkatan" name="angkatan" type="number" min="2000" max="2100" required placeholder="2023" class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400" />
+        </div>
 
-      <button type="submit">Kirim Aspirasi</button>
-    </form>
-    <p class="success" id="successMsg" style="display:none;">✅ Data berhasil dikirim!</p>
-    <p class="error" id="errorMsg" style="display:none;">❌ Terjadi kesalahan, coba lagi.</p>
+        <div>
+          <label class="block text-sm font-medium mb-2" for="pilihan">Pilihan</label>
+          <select id="pilihan" name="pilihan" required class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400">
+            <option value="">— pilih —</option>
+            <option>Kampus</option>
+            <option>Himpunan</option>
+          </select>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium mb-2" for="kritik">Kritik & Saran</label>
+          <textarea id="kritik" name="kritik" rows="5" required placeholder="Tulis kritik & saran yang membangun..." class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400"></textarea>
+        </div>
+
+        <!-- Honeypot sederhana (anti-spam) -->
+        <input type="text" id="hp" name="hp" class="hidden" tabindex="-1" autocomplete="off" />
+
+        <div class="md:col-span-2 flex flex-col sm:flex-row items-center gap-3">
+          <button type="submit" id="submitBtn" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-blue-500 hover:bg-blue-600 px-5 py-3 font-semibold text-white active:scale-[.99] transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            Kirim Aspirasi
+          </button>
+          <p id="status" class="text-sm text-slate-400"></p>
+        </div>
+      </form>
+    </section>
+
+    <p class="mt-6 text-xs text-slate-500">Dengan mengirimkan formulir ini, Anda setuju data disimpan untuk kepentingan perbaikan layanan HME. </p>
+  </main>
+
+  <!-- ADMIN MODAL -->
+  <div id="adminModal" class="fixed inset-0 hidden items-center justify-center p-6 bg-black/60">
+    <div class="glass rounded-3xl max-w-xl w-full p-6 md:p-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold">Panel Admin</h2>
+        <button id="closeAdmin" class="rounded-xl px-3 py-1 hover:bg-white/10">✕</button>
+      </div>
+      <label class="block text-sm font-medium mb-2" for="adminCode">Masukkan Kode Admin</label>
+      <input id="adminCode" type="password" placeholder="••••••" class="w-full rounded-2xl bg-slate-900/40 border border-white/10 px-4 py-3 outline-none focus:border-blue-400" />
+      <button id="unlockAdmin" class="mt-4 inline-flex items-center gap-2 rounded-2xl bg-emerald-500 hover:bg-emerald-600 px-4 py-2 font-semibold">Buka Akses</button>
+
+      <div id="adminActions" class="mt-6 hidden">
+        <p class="text-sm text-slate-400 mb-3">Akses diberikan. Pilih tindakan:</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a id="openSheet" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-500 hover:bg-indigo-600 px-4 py-2 font-semibold">Buka Spreadsheet</a>
+          <a id="openCSV" href="#" target="_blank" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-fuchsia-500 hover:bg-fuchsia-600 px-4 py-2 font-semibold">Unduh CSV (opsional)</a>
+        </div>
+        <p class="mt-3 text-xs text-slate-500">Catatan: Kontrol admin di sisi klien bersifat dasar. Untuk keamanan lebih, gunakan proteksi di Apps Script atau batasi akses spreadsheet.</p>
+      </div>
+    </div>
   </div>
 
+  <!-- Hidden iframe untuk submit tanpa CORS -->
+  <iframe name="hidden_iframe" id="hidden_iframe" class="hidden"></iframe>
+
   <script>
-    // 🔗 GANTI LINK DI BAWAH DENGAN LINK WEB APP KAMU
-    const scriptURL = https://script.google.com/macros/s/AKfycbzUPcfRMwn-KhcRAupD03hQSz_S1XKHdbe3ojmgSHI0mb4jE5WrIsfulgigOArUdG6p/exec;  
+    // =========================
+    // KONFIGURASI WAJIB DIISI
+    // =========================
+    // 1) Tempel URL Web App Google Apps Script (akhiran /exec)
+    const SCRIPT_URL = https://script.google.com/macros/s/AKfycbyPbqIusnXwjeLcOnJzfNrp9m_bydPcn3SImgx04vzvGHwEx76JdAhRAC5zXATmpqJw/exec;
+    // 2) (Opsional) URL Spreadsheet agar admin bisa membuka langsung (File > Share > Anyone with link viewer)
+    const SHEET_URL   = https://docs.google.com/spreadsheets/d/1Tf6zXorO24WdxprjAzjmgAYS_Ya4Zn8paCIiJcmf8FE/edit?usp=sharing;
+    // 3) (Opsional) URL CSV yang dipublikasikan (File > Share > Publish to the web > CSV of data)
+    const CSV_URL     = https://docs.google.com/spreadsheets/d/e/2PACX-1vQGf85ph4kkds4Erz0852QZm_5wCJOKJ2sj7_IOkPkR6sVpqudsRSl18pKXp8BgXmDgt2eco2CtPnwT/pub?gid=0&single=true&output=csv;
+    // 4) Kode admin
+    const ADMIN_CODE  = "654321";
 
-    const form = document.getElementById("aspirasiForm");
-    const successMsg = document.getElementById("successMsg");
-    const errorMsg = document.getElementById("errorMsg");
+    // Jangan ubah di bawah ini kecuali paham.
+    const form = document.getElementById('aspirasiForm');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      fetch(scriptURL, { method: "POST", body: new FormData(form)})
-        .then(response => {
-          successMsg.style.display = "block";
-          errorMsg.style.display = "none";
-          form.reset();
-        })
-        .catch(error => {
-          successMsg.style.display = "none";
-          errorMsg.style.display = "block";
-          console.error("Error!", error.message);
-        });
+    // PAKSA action & method agar post ke Apps Script via hidden iframe (hindari CORS)
+    form.action = SCRIPT_URL;
+    form.method = 'POST';
+
+    // Tambah handler untuk menampilkan status setelah iframe selesai load
+    const iframe = document.getElementById('hidden_iframe');
+    iframe.addEventListener('load', () => {
+      // Jika load dipicu dari submit, anggap sukses
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Kirim Aspirasi';
+      statusEl.textContent = 'Aspirasi berhasil dikirim. Terima kasih!';
+      statusEl.classList.remove('text-red-400');
+      statusEl.classList.add('text-emerald-400');
+      form.reset();
+    });
+
+    form.addEventListener('submit', (e) => {
+      // Validasi ringan & honeypot
+      const hp = document.getElementById('hp').value.trim();
+      if (hp) {
+        e.preventDefault();
+        statusEl.textContent = 'Terblokir sebagai spam.';
+        statusEl.classList.remove('text-emerald-400');
+        statusEl.classList.add('text-red-400');
+        return;
+      }
+      // Pastikan URL sudah diisi
+      if (!SCRIPT_URL || SCRIPT_URL.includes('PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+        e.preventDefault();
+        alert('Konfigurasi belum lengkap. Tempelkan URL Web App Apps Script di file ini.');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Mengirim...';
+      statusEl.textContent = 'Sedang mengirim...';
+      statusEl.classList.remove('text-red-400','text-emerald-400');
+    });
+
+    // =========================
+    // Panel Admin (client-side)
+    // =========================
+    const adminBtn = document.getElementById('adminBtn');
+    const adminModal = document.getElementById('adminModal');
+    const closeAdmin = document.getElementById('closeAdmin');
+    const unlockAdmin = document.getElementById('unlockAdmin');
+    const adminCode = document.getElementById('adminCode');
+    const adminActions = document.getElementById('adminActions');
+    const openSheet = document.getElementById('openSheet');
+    const openCSV = document.getElementById('openCSV');
+
+    adminBtn.addEventListener('click', () => { adminModal.classList.remove('hidden'); adminModal.classList.add('flex'); adminCode.focus(); });
+    closeAdmin.addEventListener('click', () => { adminModal.classList.add('hidden'); adminModal.classList.remove('flex'); adminCode.value = ''; adminActions.classList.add('hidden'); });
+
+    unlockAdmin.addEventListener('click', () => {
+      if (adminCode.value === ADMIN_CODE) {
+        adminActions.classList.remove('hidden');
+        if (SHEET_URL && !SHEET_URL.includes('PASTE_YOUR_GOOGLE_SHEET_URL_HERE')) {
+          openSheet.href = SHEET_URL;
+          openSheet.classList.remove('pointer-events-none','opacity-50');
+        } else {
+          openSheet.href = '#';
+          openSheet.classList.add('pointer-events-none','opacity-50');
+        }
+        if (CSV_URL && !CSV_URL.includes('PASTE_PUBLISHED_CSV_URL_HERE')) {
+          openCSV.href = CSV_URL;
+          openCSV.classList.remove('pointer-events-none','opacity-50');
+        } else {
+          openCSV.href = '#';
+          openCSV.classList.add('pointer-events-none','opacity-50');
+        }
+      } else {
+        alert('Kode admin salah.');
+      }
     });
   </script>
+
+  <!--
+  ============================
+  CATATAN KONFIGURASI RINGKAS:
+  1) Deploy Apps Script (kode di chat) => copy URL Web App (akhiran /exec) => tempel ke konstanta SCRIPT_URL di atas.
+  2) Tempelkan URL Google Sheet ke SHEET_URL agar tombol "Buka Spreadsheet" aktif (opsional).
+  3) (Opsional) Publish to web (CSV) dan tempel ke CSV_URL untuk unduh cepat.
+  4) Commit file ini sebagai index.html ke repo GitHub Pages Anda.
+  ============================
+  -->
 </body>
 </html>
